@@ -1,0 +1,77 @@
+replicaCount: 1
+
+namespace: staging
+
+image:
+  repository: nginx
+  tag: stable
+  pullPolicy: IfNotPresent
+
+container:
+  port: 80
+  livenessProbe:
+    httpGet:
+      path: /health
+      port: http
+  readinessProbe:
+    httpGet:
+      path: /health
+      port: http
+  env:
+    - name: NODE_ENV
+      value: staging
+
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+
+service:
+  enabled: true
+  type: ClusterIP
+  port: 80
+
+istio:
+  enabled: false
+  sidecar: true
+  virtualService:
+    gateways:
+      - "https-pluang"
+    hosts:
+      - "dev-merchant.pluang.com"
+
+ingress:
+  enabled: true
+  annotations:
+    kubernetes.io/ingress.class: nginx
+  hosts:
+    - host: staging-merchant.pluang.com
+      paths: [/]
+
+  tls: []
+  #  - secretName: chart-example-tls
+  #    hosts:
+  #      - chart-example.local
+
+resources:
+  limits:
+    cpu: 100m
+    memory: 128Mi
+  requests:
+    cpu: 100m
+    memory: 128Mi
+
+nodeSelector: {}
+
+hpa:
+  enabled: false
+  minReplicas: 1
+  maxReplicas: 3
+  metrics:
+    cpu:
+      targetAverageUtilization: 50
+    memory:
+      targetAverageUtilization: 50
+
+tolerations: []
+
+affinity: {}

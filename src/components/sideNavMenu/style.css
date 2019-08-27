@@ -1,0 +1,36 @@
+@font-face {
+    font-family: 'visby_cfregular';
+    src: url('./../../assets/fonts/visbycf-regular-webfont.woff2') format('woff2'),
+         url('./../../assets/fonts/visbycf-regular-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+.menu {
+    width: 280px;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    top: 0;
+    height: 100%;
+    float: left;
+}
+.metismenu {
+    /*background: #000;*/
+    font-size: 14px;
+    overflow: hidden;
+    position: relative; padding-top: 90px;
+}
+.metismenu-link{ color: #fff;}
+.metismenu-link.active{background:#3a93ff}
+.metismenu-link.has-active-child{
+    color: #ffffff;
+    background: #1d81fb;
+}
+.metismenu-link:hover{background:#4a98f7}
+.metismenu-link{text-shadow: none}
+.metismenu-container.visible>.metismenu-item>.metismenu-link{text-decoration:none}
+.metismenu>.metismenu-container>.metismenu-item>.metismenu-link{text-decoration: none}
+
+

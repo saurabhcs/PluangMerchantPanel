@@ -1,0 +1,494 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+
+html, body {
+    height: 100%;
+    font-family: sans-serif;
+    background: #f1f1f1;
+}
+
+body {
+    min-width:1000px;        /* Suppose you want minimum width of 1000px */
+    width: auto !important;  /* Firefox will set width as auto */
+    width: 1000px;
+}
+
+#root {
+    height: 100%;
+}
+
+.home-container {
+    height: 100%;
+    background: url("./../images/background.jpg");
+}
+
+.title {
+    font-family: Raleway, sans-serif;
+}
+
+body {
+    font-family: 'Lato', sans-serif;
+}
+
+@font-face {
+    font-family: 'visby_round_cfbold';
+    src: url('./../../assets/fonts/visbyroundcf-bold-webfont.woff2') format('woff2'),
+    url('./../../assets/fonts/visbyroundcf-bold-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+@font-face {
+    font-family: 'visby_round_cfheavy';
+    src: url('./../../assets/fonts/visbyroundcf-heavy-webfont.woff2') format('woff2'),
+    url('./../../assets/fonts/visbyroundcf-heavy-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+@font-face {
+    font-family: 'visby_round_cfregular';
+    src: url('./../../assets/fonts/visbyroundcf-regular-webfont.woff2') format('woff2'),
+    url('./../../assets/fonts/visbyroundcf-regular-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+@font-face {
+    font-family: 'visby_cfbold';
+    src: url('./../../assets/fonts/visbycf-bold-webfont.woff2') format('woff2'),
+    url('./../../assets/fonts/visbycf-bold-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+@font-face {
+    font-family: 'visby_cfregular';
+    src: url('./../../assets/fonts/visbycf-regular-webfont.woff2') format('woff2'),
+    url('./../../assets/fonts/visbycf-regular-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+
+h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
+    font-family: 'Lato', sans-serif;
+}
+
+.card-title {
+    font-family: 'Lato', sans-serif;
+}
+
+.menu {
+    width: 240px !important;
+    position: fixed !important;
+}
+
+.formHeading {
+    background: #eee;
+    padding: 10px;
+    border-radius: 2px;
+    border: 1px rgb(231, 230, 230) solid;
+    margin-bottom: 20px;
+    font-size: 18px;
+    font-weight: bold
+}
+
+.formHeading h4 {
+    padding: 0;
+    margin: 0;
+    font-size: 22px;
+}
+
+.status .form-group label {
+    display: block !important;
+}
+
+.workingArea {
+    width: 100%;
+    padding: 0 10px 0 10px;
+    margin-bottom: 10px;
+}
+
+.form-label {
+    font-size: 14px;
+    font-weight: 700
+}
+
+.colorFill {
+    color: #000;
+    font-size: 14px;
+}
+
+.mrgTop {
+    margin-top: 20px;
+}
+
+.mrgTop2 {
+    margin-top: 30px;
+}
+
+table {
+    font-size: 13px;
+}
+
+.noFound {
+    width: 100%;
+    text-align: center;
+    margin-top: 20px;
+    color: red
+}
+
+.noFound2 {
+    margin-top: 20px;
+    color: red;
+    text-align: right
+}
+
+.noFound h5 {
+    font-size: 12px;
+}
+
+.mainHeading {
+    width: 100%;
+    border-bottom: 1px #eee solid;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+}
+
+.mainHeading h1 {
+    font-size: 24px;
+}
+
+.mainHeading h1 small {
+    display: block;
+    color: #f53;
+    margin-top: 5px;
+    font-size: 90%;
+}
+
+.btnLeft {
+    margin-left: 15px;
+}
+
+.fontSize {
+    font-size: 15px;
+}
+
+.pagRight {
+    float: right;
+}
+
+ul.pagination {
+    float: right;
+}
+
+.btn {
+    font-size: 12px;
+}
+
+.form-control {
+    font-size: 12px;
+}
+
+.adminListing {
+    margin-top: 20px;
+}
+
+.adminListing tr {
+    cursor: pointer;
+}
+
+.paddLeft {
+    padding-left: 0;
+}
+
+.btn-primary {
+    color: #fff;
+    background-color: #0070d1;
+    border-color: #0070d1;
+}
+
+.btn-primary:hover {
+    background-color: #4a98f7;
+    border-color: #4a98f7;
+}
+
+.form-check {
+    font-size: 12px;
+}
+
+.labHeading .input-group .form-label {
+    display: block;
+    width: 100%;
+}
+
+.textSize {
+    font-size: 12px;
+}
+
+.priceAd {
+    padding-top: 35px;
+}
+
+.priceAd2 {
+    padding-top: 6px;
+}
+
+.inpPadd .input-group-text {
+    padding: 3px 8px;
+    font-size: 12px;
+}
+
+
+.btnAction {
+    padding: 4px 7px;
+    color: #fff;
+    margin-right: 4px;
+    font-size: 11px;
+}
+
+.btnAction i {
+    color: #fff;
+    font-size: 12px;
+}
+
+.page-link {
+    padding: 0.4rem 0.75rem;
+    line-height: 1;
+}
+
+.activeBtn {
+    background: #06ae24;
+    font-size: 14px;
+    font-weight: normal;
+    color: #fff;
+    width: auto;
+    float: left;
+    padding: 4px 10px;
+    border-radius: 2px;
+    margin-top: 5px;
+}
+
+.activeBtn:hover {
+    background: #05921e;
+}
+
+.dactiveBtn {
+    background: #e50808;
+    font-size: 14px;
+    font-weight: normal;
+    color: #fff;
+    width: auto;
+    float: left;
+    padding: 4px 10px;
+    border-radius: 2px;
+    margin-top: 5px;
+}
+
+.dactiveBtn:hover {
+    background: #c90606;
+}
+
+.grm ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.grm li {
+    line-height: normal;
+    display: inline-block;
+    background: #d2e5fd;
+    padding: 4px;
+    border-radius: 4px;
+    margin-right: 5px;
+    border: 1px #a4cbfb solid;
+    font-size: 13px;
+    margin-bottom: 5px;
+}
+
+.curr {
+    padding-left: 4px;
+}
+
+.keyBtn {
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.borderNone {
+    border: none !important;
+}
+
+.mrgRight {
+    margin-right: 10px;
+}
+
+.pending {
+    color: #BDBDBD;
+}
+
+.mustardColor {
+    background: #ff9800;
+    border-color: #ff9800;
+    color: #fff
+}
+
+.mustardColor:hover {
+    background: #e78a02;
+    color: #fff
+}
+
+.viewButton .btn-warning:not(:disabled):not(.disabled):active, .btn-warning:not(:disabled):not(.disabled).active, .show > .btn-warning.dropdown-toggle {
+    color: #fff;
+    background: #e78a02;
+}
+
+.viewButton .btn-warning:focus, .btn-warning.focus {
+    box-shadow: 0 0 0 0.2rem rgba(231, 138, 2, 0.5);
+}
+
+.resutlHeading {
+    width: 100%;
+    padding: 5px 8px;;
+    background: #f0f7ff;
+}
+
+.resutlHeading h5 {
+    padding: 0;
+    margin: 0;
+    font-size: 16px;
+}
+
+.redStar {
+    color: red;
+}
+
+.workingArea i {
+    font-size: 12px;
+}
+
+.mainHeading i {
+    padding-right: 2px;
+}
+
+.aignM {
+    text-align: right
+}
+
+.colorBlue {
+    font-size: 20px;
+    color: #0070d1;
+    font-weight: 700;
+    padding-left: 8px;
+}
+
+.cashBack {
+    width: 400px;
+    background: #f0f8ff;
+    padding: 8px;
+    border: 2px #dff0ff dashed;
+    margin: 0 auto 10px;
+}
+
+.cashBack h4 {
+    padding: 0;
+    margin: 0;
+}
+
+.foSize {
+    font-size: 14px;
+}
+
+.tableBg {
+    background: #eee
+}
+
+.sweet-alert {
+    width: 350px !important;
+    margin-left: -185px !important;
+    top: 40% !important;
+    transition: top 300ms cubic-bezier(0.17, 0.04, 0.03, 0.94) !important;
+}
+
+.sweet-alert div:first-child {
+    width: 50px !important;
+    height: 50px !important;
+}
+
+.sweet-alert div span:nth-child(1) {
+    height: 21px !important;
+}
+
+.sweet-alert h2 {
+    font-size: 20px !important;
+}
+
+.sweet-alert .lead {
+    font-size: 16px !important;
+}
+
+@media only screen and (min-width: 100px) and (max-width: 1024px) {
+    .paddLeft {
+        padding-left: 15px;
+    }
+
+    .priceAd {
+        padding-top: 5px;
+        margin-top: -14px;
+        margin-bottom: 10px;
+    }
+
+    .priceAd2 {
+        padding-top: 5px;
+        margin-top: -14px;
+        margin-bottom: 10px;
+    }
+
+    .aignM {
+        text-align: left;
+    }
+}
+
+
+@media only screen and (min-width: 500px) and (max-width: 1300px) {
+    .btnAction {
+        /*padding: 2px 3px;
+        color: #fff;
+        margin-right: 2px;
+        font-size: 8px;*/
+        margin-bottom: 5px;
+
+    }
+
+    ul.pagination {
+        float: right;
+        margin-top: 20px;
+    }
+
+    .paddLeft {
+        padding-left: 15px;
+    }
+
+}
+
+.notification-container {
+    width: 420px !important;
+}
+
+.input-read-only {
+    margin-bottom: 1em;
+}
+
+.order-status-description {
+    margin: 5px 0;
+    font-size: 12px;
+}

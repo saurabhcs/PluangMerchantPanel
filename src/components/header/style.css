@@ -1,0 +1,38 @@
+.top-header {
+    background: #ffffff;
+    -webkit-box-shadow: 0 3px 3px 0 rgba(0,0,0,0.46);
+    -moz-box-shadow: 0 3px 3px 0 rgba(0,0,0,0.46);
+    box-shadow: 0 3px 3px 0 rgba(0,0,0,0.46);
+    height: 60px;
+    padding-left: 2em;
+    padding-right: 1em;
+    font-weight: bold;
+    position: fixed;
+    left: 0px;
+    right: 0px;
+    top: 0px;
+    z-index: 9;
+}
+
+.card{margin-top: 76px;}
+
+.logoArea {
+  position: fixed;
+  background: #fff;
+  width: auto;
+  left: 20px;
+  top: 0px;
+  height: 60px;    
+  padding-top: 8px;
+  text-align: center}
+
+  .navbar-header {
+    width: 265px;
+    /* float: left; */
+    font-size: 30px;
+    color: white;
+    position: relative;
+    z-index: 999999;
+    text-align: center;}
+
+   
