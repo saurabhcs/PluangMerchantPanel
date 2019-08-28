@@ -15,8 +15,18 @@ import { LOCAL } from './../../services/Urls';
 const content = [
     {
         icon: 'fas fa-shopping-bag',
-        label: 'Purchase Order',
+        label: 'Purchase Orders',
         to: LOCAL.PURCHASE_ORDERS
+    },
+    {
+        icon: 'fas fa-plus',
+        label: 'Create Purchase Order',
+        to: LOCAL.CREATE_PURCHASE_ORDER
+    },
+    {
+        icon: 'fas fa-code',
+        label: 'Vouchers',
+        to: LOCAL.VOUCHERS
     }
 ];
 

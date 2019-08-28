@@ -1,13 +1,13 @@
 /*
- * create by aditya on 2019-08-25
+ * create by aditya on 28/08/19
 */
+
 
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from "react-redux";
 import {
     Badge,
-    Button,
     Card,
     Table
 } from "react-bootstrap";
@@ -16,7 +16,7 @@ import {
     makeRequest
 } from "./../../services/APIService";
 
-class PurchaseOrders extends React.Component {
+class VouchersList extends React.Component {
     constructor (props) {
         super(props);
         this.state = {
@@ -29,7 +29,7 @@ class PurchaseOrders extends React.Component {
 
     componentDidMount () {
         return makeRequest({
-            uri: REMOTE.MERCHANT_PURCHASE_ORDER
+            uri: REMOTE.MERCHANT_VOUCHERS
         }).then(result => {
             this.setState({
                 data: result.data.data,
@@ -38,23 +38,19 @@ class PurchaseOrders extends React.Component {
         }).catch(console.error);
     }
 
-    createOrderButtonHandler () {
-        this.props.history.push(LOCAL.CREATE_PURCHASE_ORDER);
-    }
-
     handleTableRowClick (index, event) {
-        const orderId = this.state.data.content[index].id;
-        this.props.history.push(LOCAL.PURCHASE_ORDER_DETAIL.replace(":orderId", orderId));
+        const voucherId = this.state.data.content[index].id;
+        this.props.history.push(LOCAL.PURCHASE_ORDER_DETAIL.replace(":voucherId", voucherId));
     }
 
     static getStatusBadge (status) {
         switch (status) {
             case 'PENDING':
-                return (<Badge variant="secondary" style={{ padding: '5px' }}>Pending Approval</Badge>);
+                return (<Badge variant="primary" style={{ padding: '5px' }}>Pending Approval</Badge>);
             case 'REJECTED':
                 return (<Badge variant="danger">Order Rejected</Badge>);
             case 'ACCEPTED':
-                return (<Badge variant="primary">Order ACCEPTED</Badge>);
+                return (<Badge variant="success">Order ACCEPTED</Badge>);
             case 'PROCESSED':
                 return (<Badge variant="success">Order Processed</Badge>);
             default:
@@ -71,12 +67,7 @@ class PurchaseOrders extends React.Component {
                     <div className="mainHeading">
                         <div className="row">
                             <div className="col">
-                                <h1>Your voucher purchase orders</h1>
-                            </div>
-                            <div className="col text-right">
-                                <Button variant="primary" onClick={this.createOrderButtonHandler.bind(this)}>
-                                    <i className="fa fa-plus" /> Create Order
-                                </Button>
+                                <h1>Your vouchers</h1>
                             </div>
                         </div>
                     </div>
@@ -85,11 +76,12 @@ class PurchaseOrders extends React.Component {
                             <Table className="table-striped" hover>
                                 <thead>
                                     <tr>
-                                        <th>Order ID</th>
-                                        <th>Order Reference Number</th>
-                                        <th>Denominations</th>
+                                        <th>Voucher ID</th>
+                                        <th>Purchase Order ID</th>
+                                        <th>Voucher Code</th>
                                         <th>Status</th>
-                                        <th>Date</th>
+                                        <th>Date Generated</th>
+                                        <th>Date Redeemed</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -104,20 +96,13 @@ class PurchaseOrders extends React.Component {
                                         data.content.map((d, index) => (
                                             <tr key={index} onClick={this.handleTableRowClick.bind(this, index)}>
                                                 <td>{d.id}</td>
-                                                <td>{d.orderReferenceNumber}</td>
-                                                <td>{
-                                                    d.denominations.map((deno, idx) => (
-                                                        <div key={idx} style={{ padding: '5px 0' }}>
-                                                            <span>{deno.denomination}</span>
-                                                            <span style={{ margin: '0 1em' }}>x</span>
-                                                            <span>{deno.quantity}</span>
-                                                        </div>
-                                                    ))
-                                                }</td>
+                                                <td>{d.purchaseOrder.id}</td>
+                                                <td>Masked Code</td>
                                                 <td>
-                                                    <h6>{PurchaseOrders.getStatusBadge(d.status)}</h6>
+                                                    <h6>{VouchersList.getStatusBadge(d.status)}</h6>
                                                 </td>
                                                 <td>{new Date(d.createdAt).toDateString()}</td>
+                                                <td>{new Date(d.redeemedAt)}</td>
                                             </tr>
                                         ))
                                     }
@@ -131,7 +116,7 @@ class PurchaseOrders extends React.Component {
     }
 }
 
-PurchaseOrders.propTypes = {
+VouchersList.propTypes = {
     history: PropTypes.object.isRequired
 };
 
@@ -147,4 +132,4 @@ const mapDispatchToProps = (dispatch) => {
     };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(PurchaseOrders);
+export default connect(mapStateToProps, mapDispatchToProps)(VouchersList);

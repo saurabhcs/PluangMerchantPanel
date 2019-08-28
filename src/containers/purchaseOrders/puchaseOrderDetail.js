@@ -73,11 +73,11 @@ class PurchaseOrderDetail extends React.Component {
                 statusSection.badge = (<Badge variant="danger">Order Rejected</Badge>);
                 statusSection.description = (<div className="order-status-description">{rejectionReason}</div>);
                 break;
-            case 'APPROVED':
-                statusSection.badge = (<Badge variant="success">Order Approved</Badge>);
+            case 'ACCEPTED':
+                statusSection.badge = (<Badge variant="success">Order Accepted</Badge>);
                 statusSection.description = (
                     <div className="order-status-description">
-                        Your order has been approved, you will receive the vouchers over email shortly
+                        Your order has been accepted and will be processed shortly
                     </div>
                 );
                 break;

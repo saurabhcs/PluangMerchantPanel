@@ -17,6 +17,8 @@ import PurchaseOrders from "./purchaseOrders/ordersList";
 import CreatePurchaseOrder from './purchaseOrders/createPurchaseOrder';
 import PurchaseOrderDetail from './purchaseOrders/puchaseOrderDetail';
 import Home from './home';
+import Vouchers from './vouchers/vouchersList';
+import VoucherDetail from './vouchers/voucherDetail';
 
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import PropTypes from 'prop-types';
@@ -52,6 +54,8 @@ class App extends React.Component {
                             <Header user={user} dispatch={dispatch}/>
                             <div style={{ margin: '1em' }}>
                                 <Switch>
+                                    <Route path={LOCAL.VOUCHER_DETAIL} component={VoucherDetail}/>
+                                    <Route path={LOCAL.VOUCHERS} component={Vouchers}/>
                                     <Route path={LOCAL.CREATE_PURCHASE_ORDER} component={CreatePurchaseOrder}/>
                                     <Route path={LOCAL.PURCHASE_ORDER_DETAIL} component={PurchaseOrderDetail}/>
                                     <Route path={LOCAL.PURCHASE_ORDERS} component={PurchaseOrders}/>

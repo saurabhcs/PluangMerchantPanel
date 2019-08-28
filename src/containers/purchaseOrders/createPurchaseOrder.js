@@ -43,6 +43,7 @@ class CreatePurchaseOrder extends React.Component {
     constructor (props) {
         super(props);
         this.state = {
+            isLoading: false,
             isButtonDisabled: false,
             orderReferenceNumber: "",
             validated: false,
@@ -120,8 +121,12 @@ class CreatePurchaseOrder extends React.Component {
         }
     }
 
+    pushBack () {
+        this.props.history.push("../");
+    }
+
     render () {
-        const { errors, validated } = this.state;
+        const { errors, validated, isLoading } = this.state;
 
         return (
             <Card>
@@ -209,7 +214,11 @@ class CreatePurchaseOrder extends React.Component {
                             </div>
                             <div className="row">
                                 <div className="col-md-6">
-                                    <Button type="submit" size="sm">Place Order</Button>
+                                    <Button type="submit" disabled={isLoading}>Place Order</Button>
+                                    <button type="button" className="btn btn-warning btnLeft"
+                                        onClick={this.pushBack.bind(this)}>
+                                        <i className="fa fa-reply" /> Cancel
+                                    </button>
                                 </div>
                             </div>
                         </div>
