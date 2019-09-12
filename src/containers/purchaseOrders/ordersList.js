@@ -15,6 +15,7 @@ import { LOCAL, REMOTE } from './../../services/Urls';
 import {
     makeRequest
 } from "./../../services/APIService";
+import { Link } from "react-router-dom";
 
 class PurchaseOrders extends React.Component {
     constructor (props) {
@@ -90,6 +91,7 @@ class PurchaseOrders extends React.Component {
                                         <th>Denominations</th>
                                         <th>Status</th>
                                         <th>Date</th>
+                                        <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -115,9 +117,20 @@ class PurchaseOrders extends React.Component {
                                                     ))
                                                 }</td>
                                                 <td>
-                                                    <h6>{PurchaseOrders.getStatusBadge(d.status)}</h6>
+                                                    { d.status === "PROCESSED" || d.status === 'PROCESSED' ?
+                                                        <a href={d.orderUrl} className="btn btn-success">
+                                                            <i className="fa fa-download paddLeft"/> Download
+                                                        </a> : <h6>{PurchaseOrders.getStatusBadge(d.status)}</h6>}
                                                 </td>
                                                 <td>{new Date(d.createdAt).toDateString()}</td>
+                                                <td key={d.id + "_edit"}>
+                                                    <Link OnClick={this.handleTableRowClick.bind(this, index)}>
+                                                        <button title="View" type="button"
+                                                            className="btn btn-primary btnAction">
+                                                            <i className="far fa-eye"/>
+                                                        </button>
+                                                    </Link>
+                                                </td>
                                             </tr>
                                         ))
                                     }
