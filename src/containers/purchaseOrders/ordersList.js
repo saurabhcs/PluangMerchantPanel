@@ -115,7 +115,11 @@ class PurchaseOrders extends React.Component {
                                                     ))
                                                 }</td>
                                                 <td>
-                                                    <h6>{PurchaseOrders.getStatusBadge(d.status)}</h6>
+                                                    { d.status === "PROCESSED" || d.status === 'PROCESSED' ?
+                                                        <a href={d.orderUrl} className="btn btn-success">
+                                                            <i className="fa fa-download paddLeft"/>Download
+                                                        </a> : <h6>{PurchaseOrders.getStatusBadge(d.status)}</h6>
+                                                    }
                                                 </td>
                                                 <td>{new Date(d.createdAt).toDateString()}</td>
                                             </tr>
