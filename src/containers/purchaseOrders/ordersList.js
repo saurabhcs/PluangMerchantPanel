@@ -90,6 +90,7 @@ class PurchaseOrders extends React.Component {
                                         <th>Denominations</th>
                                         <th>Status</th>
                                         <th>Date</th>
+                                        <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -102,7 +103,7 @@ class PurchaseOrders extends React.Component {
                                     }
                                     {
                                         data.content.map((d, index) => (
-                                            <tr key={index} onClick={this.handleTableRowClick.bind(this, index)}>
+                                            <tr key={index}>
                                                 <td>{d.id}</td>
                                                 <td>{d.orderReferenceNumber}</td>
                                                 <td>{
@@ -122,6 +123,13 @@ class PurchaseOrders extends React.Component {
                                                     }
                                                 </td>
                                                 <td>{new Date(d.createdAt).toDateString()}</td>
+                                                <td>
+                                                    <button title="View" type="button"
+                                                        onClick={this.handleTableRowClick.bind(this, index)}
+                                                        className="btn btn-primary btnAction">
+                                                        <i className="far fa-eye"/>
+                                                    </button>
+                                                </td>
                                             </tr>
                                         ))
                                     }
