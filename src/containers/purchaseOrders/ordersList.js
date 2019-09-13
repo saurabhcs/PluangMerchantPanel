@@ -15,6 +15,7 @@ import { LOCAL, REMOTE } from './../../services/Urls';
 import {
     makeRequest
 } from "./../../services/APIService";
+import { dateFormatter } from "../../helpers/dateChanger";
 
 class PurchaseOrders extends React.Component {
     constructor (props) {
@@ -122,7 +123,7 @@ class PurchaseOrders extends React.Component {
                                                         </a> : <h6>{PurchaseOrders.getStatusBadge(d.status)}</h6>
                                                     }
                                                 </td>
-                                                <td>{new Date(d.createdAt).toDateString()}</td>
+                                                <td>{dateFormatter(d.createdAt)}</td>
                                                 <td>
                                                     <button title="View" type="button"
                                                         onClick={this.handleTableRowClick.bind(this, index)}

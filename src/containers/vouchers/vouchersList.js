@@ -15,24 +15,40 @@ import { LOCAL, REMOTE } from './../../services/Urls';
 import {
     makeRequest
 } from "./../../services/APIService";
+import Pagination from "react-js-pagination";
+import { dateFormatter } from "../../helpers/dateChanger";
+
+const PAGE_SIZE = 10;
 
 class VouchersList extends React.Component {
     constructor (props) {
         super(props);
         this.state = {
             isLoading: true,
-            data: {
-                content: []
-            }
+            data: []
         };
     }
 
     componentDidMount () {
-        return makeRequest({
-            uri: REMOTE.MERCHANT_VOUCHERS
+        this.getVouchers();
+    }
+
+    handlePageChange (pageNumber) {
+        this.setState({ activePage: pageNumber });
+        this.getVouchers(pageNumber);
+    }
+
+    getVouchers (page = 1) {
+        makeRequest({
+            uri: REMOTE.MERCHANT_VOUCHERS,
+            params: {
+                size: PAGE_SIZE,
+                page
+            }
         }).then(result => {
             this.setState({
                 data: result.data.data,
+                totalElements: result.data.totalElement,
                 isLoading: false
             });
         }).catch(console.error);
@@ -59,7 +75,7 @@ class VouchersList extends React.Component {
     }
 
     render () {
-        const { isLoading, data } = this.state;
+        const { data, totalElements } = this.state;
 
         return (
             <Card>
@@ -85,29 +101,42 @@ class VouchersList extends React.Component {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {
-                                        !isLoading && !data.content.length ? (
-                                            <tr>
-                                                <td colSpan={7} className="noFound">No Data Found</td>
-                                            </tr>
-                                        ) : null
-                                    }
-                                    {
-                                        data.content.map((d, index) => (
+                                    { totalElements > 0 ?
+                                        data.map((d, index) => (
                                             <tr key={index} onClick={this.handleTableRowClick.bind(this, index)}>
-                                                <td>{d.id}</td>
-                                                <td>{d.purchaseOrder.id}</td>
-                                                <td>Masked Code</td>
-                                                <td>
-                                                    <h6>{VouchersList.getStatusBadge(d.status)}</h6>
+                                                <td key={"id_" + d.id}>{d.id}</td>
+                                                <td key={"purchaseOrder" + d.id}>{d.purchaseOrder.id}</td>
+                                                <td key={"code" + d.id}>{d.voucherCode}</td>
+                                                <td key={"status" + d.id}>
+                                                    <h6>{VouchersList.getStatusBadge(d.state)}</h6>
                                                 </td>
-                                                <td>{new Date(d.createdAt).toDateString()}</td>
-                                                <td>{new Date(d.redeemedAt)}</td>
+                                                <td key={"createdAt" + d.id}>{dateFormatter(d.createdAt)}</td>
+                                                <td key={"redeemedAt" + d.id}>{dateFormatter(d.redeemedAt)}</td>
                                             </tr>
-                                        ))
+                                        )) :
+                                        <tr>
+                                            <td colSpan={7} className="noFound">No Data Found</td>
+                                        </tr>
                                     }
                                 </tbody>
                             </Table>
+                        </div>
+                        <div className={'row'}>
+                            <div className="col-md-12">
+                                <div style={{ float: "right" }}>
+                                    {
+                                        totalElements > PAGE_SIZE ? <Pagination
+                                            innerClass={'pagination'}
+                                            itemClass={'page-item'}
+                                            linkClass={'page-link'}
+                                            activePage={this.state.activePage}
+                                            itemsCountPerPage={PAGE_SIZE}
+                                            totalItemsCount={totalElements - 1 | 1}
+                                            pageRangeDisplayed={5}
+                                            onChange={this.handlePageChange.bind(this)}/> : ''
+                                    }
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </Card.Body>

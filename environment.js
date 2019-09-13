@@ -6,7 +6,7 @@ module.exports = {
         API_BASE: 'https://dev-merchant-api.pluang.com/v1'
     },
     local: {
-        API_BASE: 'http://localhost:7790/v1'
+        API_BASE: 'https://staging-merchant-api.pluang.com/v1'
     },
     sandbox: {
         API_BASE: 'https://sandbox-merchant-api.pluang.com/v1'
