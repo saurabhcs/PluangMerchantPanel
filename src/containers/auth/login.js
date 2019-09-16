@@ -74,7 +74,7 @@ class Login extends React.Component {
         if (elementType === "email") {
             this.props.dispatch({
                 type: LOGIN_EMAIL,
-                email: event.target.value
+                email: event.target.value.toLowerCase()
             });
         } else {
             this.props.dispatch({

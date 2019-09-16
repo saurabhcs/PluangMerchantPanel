@@ -30,6 +30,11 @@ Validators.validateDate = (date => {
     return d.toISOString().slice(0, 10) === date;
 });
 
+Validators.validateText = (text => {
+    const re = /^[a-zA-Z0-9-]{4,10}$/;
+    return re.test(String(text));
+});
+
 Validators.validatePhone = (phone => {
     if (phone.length < 8) {
         return false;

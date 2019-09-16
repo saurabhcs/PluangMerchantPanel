@@ -15,6 +15,7 @@ import {
     makeRequest
 } from "./../../services/APIService";
 import { LOCAL, REMOTE } from "./../../services/Urls";
+import Validators from "../../helpers/validators";
 
 const VOUCHER_DENOMINATIONS = [{
     displayValue: "20K",
@@ -97,6 +98,12 @@ class CreatePurchaseOrder extends React.Component {
                         valuesValid = true;
                         data.denominations[VOUCHER_DENOMINATIONS[i - 1].value] = val;
                     }
+                }
+                if (!Validators.validateText(data.orderReferenceNumber)) {
+                    this.setState({
+                        validated: false
+                    });
+                    return NotificationManager.error('InCorrect Input', 'Order Reference Number');
                 }
                 if (!valuesValid) {
                     // eslint-disable-next-line max-len
