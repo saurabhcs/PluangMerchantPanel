@@ -106,6 +106,9 @@ class CreatePurchaseOrder extends React.Component {
                     return NotificationManager.error('InCorrect Input', 'Order Reference Number');
                 }
                 if (!valuesValid) {
+                    this.setState({
+                        validated: false
+                    });
                     // eslint-disable-next-line max-len
                     return NotificationManager.error('Select at-least one denomination', 'No denominations selected', 5000);
                 }
