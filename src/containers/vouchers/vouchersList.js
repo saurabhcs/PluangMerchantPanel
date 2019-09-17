@@ -101,7 +101,7 @@ class VouchersList extends React.Component {
                                                 <td>
                                                     <h6>{VouchersList.getStatusBadge(d.status)}</h6>
                                                 </td>
-                                                <td>{new Date(d.createdAt).toDateString()}</td>
+                                                <td>{new Date(d.updatedAt).toDateString()}</td>
                                                 <td>{new Date(d.redeemedAt)}</td>
                                             </tr>
                                         ))
