@@ -15,6 +15,7 @@ import {
     makeRequest
 } from "./../../services/APIService";
 import { LOCAL, REMOTE } from "./../../services/Urls";
+import Validators from "../../helpers/validators";
 
 const VOUCHER_DENOMINATIONS = [{
     displayValue: "20K",
@@ -98,7 +99,17 @@ class CreatePurchaseOrder extends React.Component {
                         data.denominations[VOUCHER_DENOMINATIONS[i - 1].value] = val;
                     }
                 }
+                if (!Validators.validateText(data.orderReferenceNumber)) {
+                    this.setState({
+                        validated: false
+                    });
+                    return NotificationManager.error('Length Should be between 4-10/Special Char not Allowed',
+                        'Order Reference Number');
+                }
                 if (!valuesValid) {
+                    this.setState({
+                        validated: false
+                    });
                     // eslint-disable-next-line max-len
                     return NotificationManager.error('Select at-least one denomination', 'No denominations selected', 5000);
                 }
@@ -180,6 +191,7 @@ class CreatePurchaseOrder extends React.Component {
                                                                 style={{ textAlign: "center" }}
                                                                 type="number"
                                                                 min={0}
+                                                                max={10000}
                                                                 defaultValue={0}
                                                                 name={`quantity${index}`}
                                                                 isValid={validated}
