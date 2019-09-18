@@ -42,12 +42,10 @@ class VouchersList extends React.Component {
     }
 
     componentDidMount () {
-        debugger;
         this.getVouchers();
     }
 
     handlePageChange (pageNumber) {
-        debugger;
         this.setState({ activePage: pageNumber });
         this.getVouchers(pageNumber);
     }
@@ -85,7 +83,6 @@ class VouchersList extends React.Component {
     }
 
     getVouchers (page = 1) {
-        debugger;
         makeRequest({
             uri: REMOTE.MERCHANT_VOUCHERS,
             params: {
@@ -197,8 +194,11 @@ class VouchersList extends React.Component {
                                                     <td key={"status" + d.id}>
                                                         <h6>{VouchersList.getStatusBadge(d.state)}</h6>
                                                     </td>
-                                                    <td key={"createdAt" + d.id}>{dateFormatter(d.updatedAt)}</td>
-                                                    <td key={"redeemedAt" + d.id}>{dateFormatter(d.redeemedAt)}</td>
+                                                    <td key={"createdAt" + d.id}>
+                                                        {dateFormatter(d.purchaseOrder.updatedAt)}</td>
+                                                    <td key={"redeemedAt" + d.id}>
+                                                        {d.state === 'REDEEMED' ?
+                                                            dateFormatter(d.updatedAt) : null}</td>
                                                 </tr>
                                             )) :
                                             <tr>
