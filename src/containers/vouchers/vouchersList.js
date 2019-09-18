@@ -42,12 +42,10 @@ class VouchersList extends React.Component {
     }
 
     componentDidMount () {
-        debugger;
         this.getVouchers();
     }
 
     handlePageChange (pageNumber) {
-        debugger;
         this.setState({ activePage: pageNumber });
         this.getVouchers(pageNumber);
     }
@@ -85,7 +83,6 @@ class VouchersList extends React.Component {
     }
 
     getVouchers (page = 1) {
-        debugger;
         makeRequest({
             uri: REMOTE.MERCHANT_VOUCHERS,
             params: {
