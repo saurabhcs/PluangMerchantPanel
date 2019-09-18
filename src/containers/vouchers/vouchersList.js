@@ -194,8 +194,11 @@ class VouchersList extends React.Component {
                                                     <td key={"status" + d.id}>
                                                         <h6>{VouchersList.getStatusBadge(d.state)}</h6>
                                                     </td>
-                                                    <td key={"createdAt" + d.id}>{dateFormatter(d.updatedAt)}</td>
-                                                    <td key={"redeemedAt" + d.id}>{dateFormatter(d.redeemedAt)}</td>
+                                                    <td key={"createdAt" + d.id}>
+                                                        {dateFormatter(d.purchaseOrder.updatedAt)}</td>
+                                                    <td key={"redeemedAt" + d.id}>
+                                                        {d.state === 'REDEEMED' ?
+                                                            dateFormatter(d.updatedAt) : null}</td>
                                                 </tr>
                                             )) :
                                             <tr>
