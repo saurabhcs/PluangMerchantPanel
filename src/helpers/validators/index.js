@@ -41,7 +41,7 @@ Validators.validatePhone = (phone => {
 });
 
 Validators.validateText = (text => {
-    const re = /^[a-zA-Z0-9-]{4,10}$/;
+    const re = /^[a-zA-Z0-9-_]{4,10}$/;
     return re.test(String(text));
 });
 
