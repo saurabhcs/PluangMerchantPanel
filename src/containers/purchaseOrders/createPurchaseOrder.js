@@ -103,7 +103,8 @@ class CreatePurchaseOrder extends React.Component {
                     this.setState({
                         validated: false
                     });
-                    return NotificationManager.error('InCorrect Input', 'Order Reference Number');
+                    return NotificationManager.error('Length Should be between 4-10/Special Char not Allowed',
+                        'Order Reference Number');
                 }
                 if (!valuesValid) {
                     this.setState({
@@ -190,6 +191,7 @@ class CreatePurchaseOrder extends React.Component {
                                                                 style={{ textAlign: "center" }}
                                                                 type="number"
                                                                 min={0}
+                                                                max={10000}
                                                                 defaultValue={0}
                                                                 max={10000}
                                                                 name={`quantity${index}`}

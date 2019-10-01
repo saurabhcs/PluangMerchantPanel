@@ -45,4 +45,10 @@ Validators.validatePhone = (phone => {
     return true;
 });
 
+Validators.validateText = (text => {
+    const re = /^[a-zA-Z0-9-_]{4,10}$/;
+    return re.test(String(text));
+});
+
+
 export default Validators;

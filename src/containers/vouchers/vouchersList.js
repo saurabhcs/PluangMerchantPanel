@@ -9,40 +9,102 @@ import { connect } from "react-redux";
 import {
     Badge,
     Card,
+    Button,
+    Form,
     Table
 } from "react-bootstrap";
-import { LOCAL, REMOTE } from './../../services/Urls';
+import { REMOTE } from './../../services/Urls';
 import {
     makeRequest
 } from "./../../services/APIService";
+import Pagination from "react-js-pagination";
+import { dateFormatter } from "../../helpers/dateChanger";
+// import DatetimeRangePicker from './../../components/datetimerangepicker';
+import moment from "moment";
+
+const PAGE_SIZE = 10;
 
 class VouchersList extends React.Component {
     constructor (props) {
         super(props);
         this.state = {
             isLoading: true,
-            data: {
-                content: []
-            }
+            activePage: 1,
+            startDate: moment().subtract(30, 'd').format('YYYY-MM-DD'),
+            endDate: moment().add(1, 'd').format('YYYY-MM-DD'),
+            totalElements: 0,
+            totalPages: 0,
+            voucherCode: "",
+            voucherId: "",
+            purchaseOrderId: "",
+            data: []
         };
     }
 
     componentDidMount () {
-        return makeRequest({
-            uri: REMOTE.MERCHANT_VOUCHERS
+        this.getVouchers();
+    }
+
+    handlePageChange (pageNumber) {
+        this.setState({ activePage: pageNumber });
+        this.getVouchers(pageNumber);
+    }
+    handlerInputChange (elementType, event) {
+        this.setState({
+            [elementType]: event.target.value && typeof event.target.value === 'string' ?
+                event.target.value : event.target.value
+        });
+    }
+    showAll (e) {
+        e.preventDefault();
+        this.setState(
+            {
+                activePage: 1,
+                startDate: moment().subtract(30, 'd').format('YYYY-MM-DD'),
+                endDate: moment().add(1, 'd').format('YYYY-MM-DD'),
+                totalElements: 0,
+                totalPages: 0,
+                voucherCode: "",
+                voucherId: "",
+                purchaseOrderId: "",
+                data: []
+            }, () => {
+                this.getVouchers();
+            }
+        );
+        return false;
+    }
+    submitQuery (e) {
+        this.setState({
+            isButtonDisabled: true
+        });
+        e.preventDefault();
+        this.getVouchers();
+    }
+
+    getVouchers (page = 1) {
+        makeRequest({
+            uri: REMOTE.MERCHANT_VOUCHERS,
+            params: {
+                page: page, startDate: this.state.startDate, endDate: this.state.endDate, size: PAGE_SIZE,
+                voucherId: this.state.voucherId && this.state.voucherId !== '' ? this.state.voucherId : null,
+                voucherCode: this.state.voucherCode && this.state.voucherCode !== '' ? this.state.voucherCode : null,
+                state: this.state.state !== "all" ? this.state.state : null,
+                purchaseOrderId: this.state.purchaseOrderId &&
+                this.state.purchaseOrderId !== '' ? this.state.purchaseOrderId : null
+            }
         }).then(result => {
             this.setState({
                 data: result.data.data,
+                totalElements: result.data.totalElement,
                 isLoading: false
+            });
+        }).finally(() => {
+            this.setState({
+                isButtonDisabled: false
             });
         }).catch(console.error);
     }
-
-    handleTableRowClick (index, event) {
-        const voucherId = this.state.data.content[index].id;
-        this.props.history.push(LOCAL.PURCHASE_ORDER_DETAIL.replace(":voucherId", voucherId));
-    }
-
     static getStatusBadge (status) {
         switch (status) {
             case 'PENDING':
@@ -59,7 +121,7 @@ class VouchersList extends React.Component {
     }
 
     render () {
-        const { isLoading, data } = this.state;
+        const { totalElements, data, voucherId, voucherCode, purchaseOrderId } = this.state;
 
         return (
             <Card>
@@ -71,45 +133,100 @@ class VouchersList extends React.Component {
                             </div>
                         </div>
                     </div>
-                    <div className="adminListing">
-                        <div className={"table-responsive-xl text-nowrap"}>
-                            <Table className="table-striped" hover>
-                                <thead>
-                                    <tr>
-                                        <th>Voucher ID</th>
-                                        <th>Purchase Order ID</th>
-                                        <th>Voucher Code</th>
-                                        <th>Status</th>
-                                        <th>Date Generated</th>
-                                        <th>Date Redeemed</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {
-                                        !isLoading && !data.content.length ? (
+
+                    <Card.Title>Filter</Card.Title>
+                    <Form onSubmit={this.submitQuery.bind(this)}>
+                        <div className="row">
+                            <div className="col">
+                                <Form.Group controlId="formVoucherId">
+                                    <Form.Control
+                                        type="text" placeholder="Voucher Id"
+                                        value={voucherId}
+                                        onChange={this.handlerInputChange.bind(this, 'voucherId')}/>
+                                </Form.Group>
+                            </div>
+                            <div className="col">
+                                <Form.Group controlId="formVoucherCode">
+                                    <Form.Control
+                                        type="text" placeholder="Voucher Code"
+                                        value={voucherCode}
+                                        onChange={this.handlerInputChange.bind(this, 'voucherCode')}/>
+                                </Form.Group>
+                            </div>
+                            <div className="col">
+                                <Form.Group controlId="formPurchaseOrderId">
+                                    <Form.Control
+                                        type="text" placeholder="PurchaseOrder Id"
+                                        value={purchaseOrderId}
+                                        onChange={this.handlerInputChange.bind(this, 'purchaseOrderId')}/>
+                                </Form.Group>
+                            </div>
+                            <div className="col-xl-4 paddLeft">
+                                <Button type={"submit"} disabled={this.state.isButtonDisabled} variant="primary">
+                                    <i className="fa fa-search" /> Search
+                                </Button>
+                                <button type="button" className="btn btn-info btnLeft"
+                                    onClick={this.showAll.bind(this)}>
+                                    <i className="fa fa-filter" /> Reset Filters
+                                </button>
+                            </div>
+                        </div>
+                        <div className="adminListing">
+                            <div className={"table-responsive-xl"}>
+                                <Table className="table-striped" hover>
+                                    <thead>
+                                        <tr>
+                                            <th>Voucher ID</th>
+                                            <th>Purchase Order ID</th>
+                                            <th>Voucher Code</th>
+                                            <th>Status</th>
+                                            <th>Date Generated</th>
+                                            <th>Date Redeemed</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        { totalElements > 0 ?
+                                            data.map((d, index) => (
+                                                <tr key={index}>
+                                                    <td key={"id_" + d.id}>{d.id}</td>
+                                                    <td key={"purchaseOrder" + d.id}>{d.purchaseOrder.id}</td>
+                                                    <td key={"code" + d.id}>{d.voucherCode}</td>
+                                                    <td key={"status" + d.id}>
+                                                        <h6>{VouchersList.getStatusBadge(d.state)}</h6>
+                                                    </td>
+                                                    <td key={"createdAt" + d.id}>
+                                                        {dateFormatter(d.purchaseOrder.updatedAt)}</td>
+                                                    <td key={"redeemedAt" + d.id}>
+                                                        {d.state === 'REDEEMED' ?
+                                                            dateFormatter(d.updatedAt) : null}</td>
+                                                </tr>
+                                            )) :
                                             <tr>
                                                 <td colSpan={7} className="noFound">No Data Found</td>
                                             </tr>
-                                        ) : null
-                                    }
-                                    {
-                                        data.content.map((d, index) => (
-                                            <tr key={index} onClick={this.handleTableRowClick.bind(this, index)}>
-                                                <td>{d.id}</td>
-                                                <td>{d.purchaseOrder.id}</td>
-                                                <td>Masked Code</td>
-                                                <td>
-                                                    <h6>{VouchersList.getStatusBadge(d.status)}</h6>
-                                                </td>
-                                                <td>{new Date(d.updatedAt).toDateString()}</td>
-                                                <td>{new Date(d.redeemedAt)}</td>
-                                            </tr>
-                                        ))
-                                    }
-                                </tbody>
-                            </Table>
+                                        }
+                                    </tbody>
+                                </Table>
+                            </div>
+                            <div className={'row'}>
+                                <div className="col-md-12">
+                                    <div style={{ float: "right" }}>
+                                        {
+                                            totalElements > PAGE_SIZE ? <Pagination
+                                                innerClass={'pagination'}
+                                                itemClass={'page-item'}
+                                                linkClass={'page-link'}
+                                                activePage={this.state.activePage}
+                                                itemsCountPerPage={PAGE_SIZE}
+                                                totalItemsCount={totalElements - 1 | 1}
+                                                pageRangeDisplayed={5}
+                                                onChange={this.handlePageChange.bind(this)}/> : ''
+                                        }
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                    </div>
+                    </Form>
                 </Card.Body>
             </Card>
         );

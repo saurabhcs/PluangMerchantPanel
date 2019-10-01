@@ -24,6 +24,6 @@ export const REMOTE = {
     MERCHANT_LOGOUT: "/merchant/auth/logout",
     MERCHANT_PURCHASE_ORDER: "/merchant/vouchers/purchase-orders",
     MERCHANT_PURCHASE_ORDER_DETAIL: "/merchant/vouchers/purchase-orders/:id",
-    MERCHANT_VOUCHERS: "/marchant/vouchers/vouchers",
-    MERCHANT_VOUCHER_DETAIL: "/merchant/vouchers/vouchers/:id"
+    MERCHANT_VOUCHERS: "/merchant/vouchers/",
+    MERCHANT_VOUCHER_DETAIL: "/merchant/vouchers/:id"
 };
