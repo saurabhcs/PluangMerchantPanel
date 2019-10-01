@@ -193,6 +193,7 @@ class CreatePurchaseOrder extends React.Component {
                                                                 min={0}
                                                                 max={10000}
                                                                 defaultValue={0}
+                                                                max={10000}
                                                                 name={`quantity${index}`}
                                                                 isValid={validated}
                                                                 required
