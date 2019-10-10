@@ -15,7 +15,6 @@ import { LOCAL, REMOTE } from './../../services/Urls';
 import {
     makeRequest
 } from "./../../services/APIService";
-import S3DownloadLink from './../../components/s3DownloadLink';
 import { NotificationManager } from "react-notifications";
 
 class PurchaseOrderDetail extends React.Component {
@@ -124,7 +123,9 @@ class PurchaseOrderDetail extends React.Component {
                                     ) : null}
                                     {
                                         status === 'PROCESSED' && <div className="col aignM">
-                                            { <S3DownloadLink url={orderUrl}/> }
+                                            <a href={orderUrl} className="btn btn-success">
+                                                <i className="fa fa-download paddLeft"/>Download
+                                            </a>
                                         </div>
                                     }
                                 </div>

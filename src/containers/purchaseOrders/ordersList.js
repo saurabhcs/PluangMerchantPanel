@@ -197,7 +197,7 @@ class PurchaseOrders extends React.Component {
                                         <div className="input-group">
                                             <input
                                                 type="text" className="form-control"
-                                                value={startDate + " - " + endDate} />
+                                                value={startDate + " - " + endDate} readOnly/>
                                             <span className="input-group-btn">
                                                 <Button style={{
                                                     border: '1px solid',
