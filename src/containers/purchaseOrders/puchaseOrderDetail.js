@@ -57,7 +57,8 @@ class PurchaseOrderDetail extends React.Component {
         if (!order) {
             return (<div/>);
         }
-        const { id, orderReferenceNumber, denominations, status, rejectionReason, description, createdAt } = order;
+        const { id, orderReferenceNumber, denominations, status,
+            rejectionReason, description, createdAt, orderUrl } = order;
         let statusSection = {
             badge: '',
             description: ''
@@ -94,54 +95,75 @@ class PurchaseOrderDetail extends React.Component {
             <div>
                 <Card>
                     <Card.Body>
-                        <div className="formHeading">
-                            Purchase Order Details &nbsp;<span className="">{statusSection.badge}</span>
+                        <div className="mainHeading">
+                            <div className="row">
+                                <div className="col-lg-5">
+                                    <h5>Purchase Order Detail</h5>
+                                </div>
+                                <div className="col aignM">
+                                    {status === 'PENDING' ? (
+                                        <div>
+                                            <button className="btn btn-success" type="button"
+                                                onClick={() => this.showAlert('Accept Order',
+                                                    'Are you sure?',
+                                                    () => this.updateOrderStatus.bind(this, 'accept')
+                                                    , null)}
+                                            >
+                                                <i className="fa fa-success" />
+                                                Accept Order</button>
+                                            <button className="btn btn-danger btnLeft" type="button"
+                                                onClick={() => this.showAlertReject('Reject Order',
+                                                    'Reason?',
+                                                    () => this.updateOrderStatus.bind(this, 'reject')
+                                                    , null)}
+                                            >
+                                                <i className="fa fa-ban" />
+                                                Reject Order</button>
+                                        </div>
+                                    ) : null}
+                                    {
+                                        status === 'PROCESSED' && <div className="col aignM">
+                                            <a href={orderUrl} className="btn btn-success">
+                                                <i className="fa fa-download paddLeft"/>Download
+                                            </a>
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                        <div className={"row"}>
+                            { <div className={"col"}><Table>
+                                <tbody>
+                                    <tr>
+                                        <td>Order Status</td>
+                                        <td>{statusSection.badge}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Purchase Order Id</td>
+                                        <td>{id}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Order Date</td>
+                                        <td>{new Date(createdAt).toDateString()}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Order Reference Number</td>
+                                        <td>{orderReferenceNumber}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Description</td>
+                                        <td>{description ? description : 'N/A'}</td>
+                                    </tr>
+                                    {status === 'REJECTED' && <tr>
+                                        <td>Rejection Reason</td>
+                                        <td>{statusSection.description}</td>
+                                    </tr> }
+                                </tbody>
+                            </Table>
+                            </div>
+                            }
                         </div>
                         <div className="workingArea">
-                            <div className="row">
-                                <div className="col-12">
-                                    <Form.Group>
-                                        <Form.Label>
-                                            Order Status
-                                        </Form.Label>
-                                        <div>
-                                            {statusSection.badge}
-                                            {statusSection.description}
-                                        </div>
-                                    </Form.Group>
-                                </div>
-                            </div>
-                            <div className="row">
-                                <div className="col-md-6">
-                                    <Form.Label>
-                                        Purchase Order ID
-                                    </Form.Label>
-                                    <div className="input-read-only">
-                                        <Form.Control type="text" defaultValue={id} readOnly/>
-                                    </div>
-                                </div>
-                                <div className="col-md-6">
-                                    <Form.Label>
-                                        Order Date
-                                    </Form.Label>
-                                    <div className="input-read-only">
-                                        <Form.Control
-                                            type="text"
-                                            defaultValue={new Date(createdAt).toDateString()}
-                                            readOnly/>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="row">
-                                <div className="col-md-6">
-                                    <Form.Label>
-                                        Order Reference Number
-                                    </Form.Label>
-                                    <div className="input-read-only">
-                                        <Form.Control type="text" defaultValue={orderReferenceNumber} readOnly/>
-                                    </div>
-                                </div>
-                            </div>
                             <div className="row">
                                 <div className="col-8">
                                     <Form.Label>
@@ -167,26 +189,8 @@ class PurchaseOrderDetail extends React.Component {
                                     </Table>
                                 </div>
                             </div>
-                            <div className="row">
-                                <div className="col-6">
-                                    <Form.Group>
-                                        <Form.Label>
-                                            Description
-                                        </Form.Label>
-                                        <div className="input-read-only">
-                                            {description ? (
-                                                <Form.Control
-                                                    as="textarea"
-                                                    type="text" defaultValue={description} readOnly
-                                                />
-                                            ) : (
-                                                <div className="order-status-description">NA</div>
-                                            )}
-                                        </div>
-                                    </Form.Group>
-                                </div>
-                            </div>
                         </div>
+                        {this.state.alert}
                     </Card.Body>
                 </Card>
             </div>
