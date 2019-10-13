@@ -101,26 +101,6 @@ class PurchaseOrderDetail extends React.Component {
                                     <h5>Purchase Order Detail</h5>
                                 </div>
                                 <div className="col aignM">
-                                    {status === 'PENDING' ? (
-                                        <div>
-                                            <button className="btn btn-success" type="button"
-                                                onClick={() => this.showAlert('Accept Order',
-                                                    'Are you sure?',
-                                                    () => this.updateOrderStatus.bind(this, 'accept')
-                                                    , null)}
-                                            >
-                                                <i className="fa fa-success" />
-                                                Accept Order</button>
-                                            <button className="btn btn-danger btnLeft" type="button"
-                                                onClick={() => this.showAlertReject('Reject Order',
-                                                    'Reason?',
-                                                    () => this.updateOrderStatus.bind(this, 'reject')
-                                                    , null)}
-                                            >
-                                                <i className="fa fa-ban" />
-                                                Reject Order</button>
-                                        </div>
-                                    ) : null}
                                     {
                                         status === 'PROCESSED' && <div className="col aignM">
                                             <a href={orderUrl} className="btn btn-success">

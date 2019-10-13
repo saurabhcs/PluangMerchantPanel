@@ -6,7 +6,7 @@ const path = require("path");
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const environment = require('./environment');
 
-const env = process.env.NODE_ENV || 'local';
+const env = process.env.NODE_ENV || 'staging';
 
 const options = {
     entry: './src/index.js',
