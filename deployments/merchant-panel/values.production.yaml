@@ -30,15 +30,6 @@ service:
   type: ClusterIP
   port: 80
 
-istio:
-  enabled: false
-  sidecar: true
-  virtualService:
-    gateways:
-      - "https-pluang"
-    hosts:
-      - ""
-
 ingress:
   enabled: true
   annotations:
@@ -70,16 +61,6 @@ resources:
     memory: 128Mi
 
 nodeSelector: {}
-
-hpa:
-  enabled: false
-  minReplicas: 1
-  maxReplicas: 3
-  metrics:
-    cpu:
-      targetAverageUtilization: 50
-    memory:
-      targetAverageUtilization: 50
 
 tolerations: []
 
